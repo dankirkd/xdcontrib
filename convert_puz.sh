@@ -5,7 +5,8 @@ SRC=$(pwd)
 mkdir -p "$OUTXD"
 export PYTHONPATH=$SRC:$SRC
 
-for puzpath in `find $SRCPUZ -name '*.puz'`; do
+# Loop that is safe for processing files names that contain whitespace
+find $SRCPUZ -name "*.puz" | while read puzpath; do
     puz=${puzpath##$SRCPUZ}
     puzname=${puz%.puz}
     xdfile/puz2xd.py "$puzpath" > "$OUTXD"/"$puzname".xd
